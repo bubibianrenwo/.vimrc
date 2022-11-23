@@ -1,0 +1,186 @@
+set mouse=a
+set nocompatible              " be iMproved, required
+" Show search results as you type
+set incsearch
+" Highlight all search results
+set hlsearch
+
+filetype off                  " required
+
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+
+call vundle#begin()
+" deoplete tab-complete
+inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
+let g:deoplete#enable_at_startup = 1
+" let Vundle manage Vundle, required
+Plugin 'VundleVim/Vundle.vim'
+
+" Keep Plugin commands between vundle#begin/end.
+
+" ---------- ADD Plugin DECLARATIONS HERE ---------
+
+" All of your Plugins must be added before the following line
+Plugin 'Shougo/deoplete.nvim'
+Plugin 'roxma/nvim-yarp'
+Plugin 'roxma/vim-hug-neovim-rpc'
+" deoplete tab-complete
+inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
+
+
+
+"fzf 模糊文件查找  <space><space>开启    
+set rtp+=~/.fzf
+Plugin 'junegunn/fzf'
+Plugin 'junegunn/fzf.vim'
+" This is the default extra key bindings
+let g:fzf_action = {
+			\'ctrl-t': 'tab split',
+			   \'ctrl-x': 'split',
+			   \'ctrl-v': 'vsplit' }
+
+" Default fzf layout
+" - down / up / left / right
+let g:fzf_layout = { 'down': '~40%' }
+
+" space space to open fzf file finder
+let mapleader = "\<Space>"
+nnoremap <silent> <leader><space> :Files<CR>
+
+" Enable hidden buffers (don't need to save when switching files)
+set hidden
+
+
+
+"ak 搜索结构体的定义
+Plugin 'mileszs/ack.vim'
+let g:ackprg = 'ag --vimgrep --smart-case'
+cnoreabbrev ag Ack
+cnoreabbrev aG Ack
+cnoreabbrev Ag Ack
+cnoreabbrev AG Ack
+
+"在顶部显示当前打开的文件
+Plugin 'vim-airline/vim-airline'
+let g:airline#extensions#tabline#enabled = 1
+"set airline 
+let g:airline#extensions#tabline#tab_nr_type = 1 " tab number
+let g:airline#extensions#tabline#show_tab_nr = 1
+let g:airline#extensions#tabline#formatter = 'default'
+let g:airline#extensions#tabline#buffer_nr_show = 1
+let g:airline#extensions#tabline#fnametruncate = 20
+let g:airline#extensions#tabline#fnamecollapse = 2
+let g:airline#extensions#tabline#buffer_idx_mode = 1
+
+nmap <leader>1 <Plug>AirlineSelectTab1
+nmap <leader>2 <Plug>AirlineSelectTab2
+nmap <leader>3 <Plug>AirlineSelectTab3
+nmap <leader>4 <Plug>AirlineSelectTab4
+nmap <leader>5 <Plug>AirlineSelectTab5
+nmap <leader>6 <Plug>AirlineSelectTab6
+nmap <leader>7 <Plug>AirlineSelectTab7
+nmap <leader>8 <Plug>AirlineSelectTab8
+nmap <leader>9 <Plug>AirlineSelectTab9
+"rust的vim设置
+Plugin 'vim-syntastic/syntastic'
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_wq = 0
+call vundle#end()            " required
+filetype plugin indent on    " required
+
+
+"rust vim 插件
+Plugin 'racer-rust/vim-racer'
+set hidden
+let g:racer_cmd = "/Users/reberhardt/.cargo/bin/racer"
+let g:racer_experimental_completer = 1
+augroup Racer
+    autocmd!
+    autocmd FileType rust nmap <buffer> gd         <Plug>(rust-def)
+    autocmd FileType rust nmap <buffer> gs         <Plug>(rust-def-split)
+    autocmd FileType rust nmap <buffer> gx         <Plug>(rust-def-vertical)
+    autocmd FileType rust nmap <buffer> gt         <Plug>(rust-def-tab)
+    autocmd FileType rust nmap <buffer> <leader>gd <Plug>(rust-doc)
+augroup END
+
+
+
+
+
+"快速切换窗口
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
+set splitbelow
+set splitright
+
+
+
+
+
+
+
+
+
+
+call plug#begin('~/.vim/plugged')
+Plug 'itchyny/lightline.vim'
+call plug#end()
+" Comments in Vimscript start with a `"`.
+
+" If you open this file in Vim, it'll be syntax highlighted for you.
+
+" Vim is based on Vi. Setting `nocompatible` switches from the default
+" Vi-compatibility mode and enables useful Vim functionality. This
+" configuration option turns out not to be necessary for the file named
+" '~/.vimrc', because Vim automatically enters nocompatible mode if that file
+" is present. But we're including it here just in case this config file is
+" loaded some other way (e.g. saved as `foo`, and then Vim started with
+" `vim -u foo`).
+set nocompatible
+
+" Turn on syntax highlighting.
+syntax on
+
+" Disable the default Vim startup message.
+set shortmess+=I
+
+" Show line numbers.
+set number
+
+" This enables relative line numbering mode. With both number and
+" relativenumber enabled, the current line shows the true line number, while
+" all other lines (above and below) are numbered relative to the current line.
+" This is useful because you can tell, at a glance, what count is needed to
+" jump up or down to a particular line, by {count}k to go up or {count}j to go
+" down.
+set relativenumber
+
+" Always show the status line at the bottom, even if you only have one window open.
+set laststatus=2
+
+" The backspace key has slightly unintuitive behavior by default. For example,
+" by default, you can't backspace before the insertion point set with 'i'.
+" This configuration makes backspace behave more reasonably, in that you can
+" backspace over anything.
+set backspace=indent,eol,start
+
+" By default, Vim doesn't let you hide a buffer (i.e. have a buffer that isn't
+" shown in any window) that has unsaved changes. This is to prevent you from "
+" forgetting about unsaved changes and then quitting e.g. via `:qa!`. We find
+" hidden buffers helpful enough to disable this protection. See `:help hidden`
+" for more information on this.
+set hidden
+
+" This setting makes search case-insensitive when all characters in the string
+" being searched are lowercase. However, the search becomes case-sensitive if
+" it contains any capital letters. This makes searching more convenient.
+set ignorecase
+set smartcase
+
+" Enable searching as you type, rather than waiting till you press enter.
+set incsearch
+
