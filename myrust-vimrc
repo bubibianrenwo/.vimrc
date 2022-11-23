@@ -117,7 +117,7 @@ set splitbelow
 set splitright
 
 
-
+set ts=4
 
 call vundle#end()            " required
 filetype plugin indent on    " required
